@@ -1,5 +1,5 @@
 # Tic-Tac-Toe
-**[Live Preview]([https://](https://ziad-sabaah.github.io/TicTacToe/))**
+**[Live Preview](https://ziad-sabaah.github.io/TicTacToe/)**
 
 #### A modern web-based Tic-Tac-Toe game with Player vs Player (PvP) and Player vs Computer (PvPC) modes, featuring a sleek pre-game screen, three AI difficulty levels, and an enhanced turn UI with a sliding window.
 
