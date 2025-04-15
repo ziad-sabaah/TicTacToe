@@ -8,28 +8,60 @@
 </head>
 <body>
   <div class="container">
-    <h1>Tic-Tac-Toe</h1>
-    <div class="turn">Player <span id="current-player">X</span>'s Turn</div>
-    <div class="board">
-      <div class="tile" data-index="0"><div class="front"></div><div class="back"></div></div>
-      <div class="tile" data-index="1"><div class="front"></div><div class="back"></div></div>
-      <div class="tile" data-index="2"><div class="front"></div><div class="back"></div></div>
-      <div class="tile" data-index="3"><div class="front"></div><div class="back"></div></div>
-      <div class="tile" data-index="4"><div class="front"></div><div class="back"></div></div>
-      <div class="tile" data-index="5"><div class="front"></div><div class="back"></div></div>
-      <div class="tile" data-index="6"><div class="front"></div><div class="back"></div></div>
-      <div class="tile" data-index="7"><div class="front"></div><div class="back"></div></div>
-      <div class="tile" data-index="8"><div class="front"></div><div class="back"></div></div>
+    <div id="pre-game">
+      <h1>Tic-Tac-Toe</h1>
+      <div class="selection">
+        <label for="game-mode">Game Mode:</label>
+        <select id="game-mode">
+          <option value="pvp">Player vs Player</option>
+          <option value="pvpc">Player vs Computer</option>
+        </select>
+      </div>
+      <div class="selection pvpc-options" style="display: none;">
+        <label for="player-sign">Your Sign:</label>
+        <select id="player-sign">
+          <option value="X">X</option>
+          <option value="O">O</option>
+        </select>
+      </div>
+      <div class="selection pvpc-options" style="display: none;">
+        <label for="difficulty">Difficulty:</label>
+        <select id="difficulty">
+          <option value="easy">Easy</option>
+          <option value="medium">Medium</option>
+          <option value="hard">Hard</option>
+        </select>
+      </div>
+      <button id="start-game">Start Game</button>
     </div>
-    <div class="scores">
-      <div>|----------------|</div>
-      <div>|  Scores        |</div>
-      <div>|Player X: <span id="score-x">0</span>      |</div>
-      <div>|Player O: <span id="score-o">0</span>      |</div>
-      <div>|----------------|</div>
+    <div id="game" style="display: none;">
+      <h1>Tic-Tac-Toe</h1>
+      <div class="score-turn">
+        <div class="score-panel x-score">
+          <span class="score-label"></span><span id="score-x">0</span>
+          <span class="turn-text" id="turn-x">Player X</span>
+        </div>
+        <div class="score-panel o-score">
+          <span class="score-label"></span><span id="score-o">0</span>
+          <span class="turn-text" id="turn-o">Player O</span>
+        </div>
+        <div class="sliding-window"></div>
+      </div>
+      <div class="board">
+        <div class="tile" data-index="0"><div class="front"></div><div class="back"></div></div>
+        <div class="tile" data-index="1"><div class="front"></div><div class="back"></div></div>
+        <div class="tile" data-index="2"><div class="front"></div><div class="back"></div></div>
+        <div class="tile" data-index="3"><div class="front"></div><div class="back"></div></div>
+        <div class="tile" data-index="4"><div class="front"></div><div class="back"></div></div>
+        <div class="tile" data-index="5"><div class="front"></div><div class="back"></div></div>
+        <div class="tile" data-index="6"><div class="front"></div><div class="back"></div></div>
+        <div class="tile" data-index="7"><div class="front"></div><div class="back"></div></div>
+        <div class="tile" data-index="8"><div class="front"></div><div class="back"></div></div>
+      </div>
+      <div id="message"></div>
+      <button id="play-again" style="display: none;">Play Again</button>
+      <button id="back-to-menu">Back to Menu</button>
     </div>
-    <div id="message"></div>
-    <button id="play-again" style="display: none;">Play Again</button>
   </div>
   <script src="script.js"></script>
 </body>
