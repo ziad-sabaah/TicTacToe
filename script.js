@@ -12,15 +12,7 @@ const gameBoard =(function (){
     const resetBoard = () => {
         board = ["", "", "", "", "", "", "", "", ""];
     };
-    const printBoard = () => {
-        console.log(` ${board[0] || ' '} | ${board[1] || ' '} | ${board[2] || ' '}`);
-        console.log("---+---+---");
-        console.log(` ${board[3] || ' '} | ${board[4] || ' '} | ${board[5] || ' '}`);
-        console.log("---+---+---");
-        console.log(` ${board[6] || ' '} | ${board[7] || ' '} | ${board[8] || ' '}`);
-    };
-    
-    return { getBoard, getCell, setCell, resetBoard, printBoard };
+    return { getBoard, getCell, setCell, resetBoard };
 })();
 
 const Player = function(sign) {
@@ -65,33 +57,23 @@ const gameController = (function () {
     const checkMove = (move) => {
         if (gameOver || move < 0 || move > 8) {
         //   console.log("Invalid move! Try again.");
-        //   return false;
             return { valid: false, message: "Invalid move!" };
         }
         const valid = gameBoard.setCell(move, players[currentPlayer].getSign());
         if (valid) {
-        //   gameBoard.printBoard();
           if (checkWin()) {
             gameOver = true;
             scores[players[currentPlayer].getSign()]++;
-            // console.log(`Player ${players[currentPlayer].getSign()} wins!`);
-            // return;
             return { valid: true, message: `Player ${players[currentPlayer].getSign()} wins!` };
 
           } else if (checkDraw()) {
             gameOver = true;
-            // console.log("It's a draw!");
-            // return;
-
             return { valid: true, message: "It's a draw!" };
           } else {
             switchPlayer();
             return { valid: true, message: "" };
           }
         }
-
-        // console.log("Cell taken! Try again.");
-        // return false;
         return { valid: false, message: "Cell taken!" };
     };
 
@@ -109,6 +91,14 @@ const gameController = (function () {
 //     input: process.stdin,
 //     output: process.stdout
 //     });
+//     function printBoard () {
+//         const board = gameBoard.getBoard();
+//         console.log(` ${board[0] || ' '} | ${board[1] || ' '} | ${board[2] || ' '}`);
+//         console.log("---+---+---");
+//         console.log(` ${board[3] || ' '} | ${board[4] || ' '} | ${board[5] || ' '}`);
+//         console.log("---+---+---");
+//         console.log(` ${board[6] || ' '} | ${board[7] || ' '} | ${board[8] || ' '}`);
+//     };
 
 //     function printScores() {
 //         const scores = gameController.getScores();
@@ -120,15 +110,14 @@ const gameController = (function () {
 //     }
     
 //     function playGameInteractive() {
-//         gameController.resetGame();
 //         console.log("Tic-Tac-Toe!");
-//         gameBoard.printBoard();
-        
 //         function askMove() {
 //             const player = gameController.getCurrentPlayerSign();
+//             printBoard();
 //             readline.question(`Player ${player}, enter move (0-8): `, input => {
 //             const move = parseInt(input, 10);
-//             gameController.checkMove(move);
+//             const result = gameController.checkMove(move);
+//             console.log(result.message);
 //             if (!gameController.isGameOver()) {
 //                 askMove();
 //             } else {
@@ -137,8 +126,6 @@ const gameController = (function () {
 //             }
 //             });
 //         }
-
-
 
 //     function askPlayAgain() {
 //         readline.question("Play again? (y/n): ", answer => {
@@ -158,47 +145,47 @@ const gameController = (function () {
     
 // playGameInteractive();
 
-const board = document.querySelector('.board');
-const tiles = document.querySelectorAll('.tile');
-const currentPlayerSpan = document.getElementById('current-player');
-const scoreXSpan = document.getElementById('score-x');
-const scoreOSpan = document.getElementById('score-o');
-const messageDiv = document.getElementById('message');
-const playAgainButton = document.getElementById('play-again');
+// const board = document.querySelector('.board');
+// const tiles = document.querySelectorAll('.tile');
+// const currentPlayerSpan = document.getElementById('current-player');
+// const scoreXSpan = document.getElementById('score-x');
+// const scoreOSpan = document.getElementById('score-o');
+// const messageDiv = document.getElementById('message');
+// const playAgainButton = document.getElementById('play-again');
 
-function updateUI() {
-  const scores = gameController.getScores();
-  scoreXSpan.textContent = scores.X;
-  scoreOSpan.textContent = scores.O;
-  currentPlayerSpan.textContent = gameController.getCurrentPlayerSign();
-  playAgainButton.style.display = gameController.isGameOver() ? 'block' : 'none';
-}
+// function updateUI() {
+//   const scores = gameController.getScores();
+//   scoreXSpan.textContent = scores.X;
+//   scoreOSpan.textContent = scores.O;
+//   currentPlayerSpan.textContent = gameController.getCurrentPlayerSign();
+//   playAgainButton.style.display = gameController.isGameOver() ? 'block' : 'none';
+// }
 
-tiles.forEach(tile => {
-  tile.addEventListener('click', () => {
-    if (gameController.isGameOver()) return;
-    const index = parseInt(tile.dataset.index);
-    const result = gameController.checkMove(index);
-    if (result.valid) {
-      const back = tile.querySelector('.back');
-      back.textContent = currentPlayerSpan.textContent;
-      tile.classList.add('flipped');
-      messageDiv.textContent = result.message;
-      updateUI();
-    } else {
-      messageDiv.textContent = result.message;
-    }
-  });
-});
+// tiles.forEach(tile => {
+//   tile.addEventListener('click', () => {
+//     if (gameController.isGameOver()) return;
+//     const index = parseInt(tile.dataset.index);
+//     const result = gameController.checkMove(index);
+//     if (result.valid) {
+//       const back = tile.querySelector('.back');
+//       back.textContent = currentPlayerSpan.textContent;
+//       tile.classList.add('flipped');
+//       messageDiv.textContent = result.message;
+//       updateUI();
+//     } else {
+//       messageDiv.textContent = result.message;
+//     }
+//   });
+// });
 
-playAgainButton.addEventListener('click', () => {
-  gameController.resetGame();
-  tiles.forEach(tile => {
-    tile.classList.remove('flipped');
-    tile.querySelector('.back').textContent = '';
-  });
-  messageDiv.textContent = '';
-  updateUI();
-});
+// playAgainButton.addEventListener('click', () => {
+//   gameController.resetGame();
+//   tiles.forEach(tile => {
+//     tile.classList.remove('flipped');
+//     tile.querySelector('.back').textContent = '';
+//   });
+//   messageDiv.textContent = '';
+//   updateUI();
+// });
 
-updateUI(); // Initial setup
+// updateUI(); // Initial setup
